@@ -1,0 +1,21 @@
+/**
+  * an h1 element w/font-size set to 1rem equates to 16px; 16 * .625 = 10, so we can work with
+  * - rem units as if they were px, but rem's allow for greater accessibility.
+  */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: white;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: $m-size;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
