@@ -19,5 +19,5 @@ $ webpack --watch
 #### ...and to fire up a barebones dev server:
 
 ```
-$ yarn run devServer
+$ yarn run dev-server
 ```
