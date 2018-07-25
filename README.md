@@ -21,3 +21,7 @@ $ webpack --watch
 ```
 $ yarn run dev-server
 ```
+
+#### in re react-redux:
+
+`<Provider store={store}>` makes the Redux store available to the `connect()` calls in the component hierarchy below it. In plain English, it makes the Redux store available to all components we `connect()`.
