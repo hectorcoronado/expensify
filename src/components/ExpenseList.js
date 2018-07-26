@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+// components:
+import ExpenseListItem from './ExpenseListItem'
+
+// selectors:
+import selectExpenses from '../selectors/expenses'
 
 /**
   * `connect()` below has given this component access to our
   * state, and made it available to it via `props`
   */
-const ExpenseList = (props) => (
+const ExpenseList = props => (
   <div>
     <h1>ExpenseList</h1>
-    {props.filters.text}
-    {props.expenses.length}
+    {props.expenses.map(expense => (
+      <ExpenseListItem key={expense.id} {...expense} />
+    ))}
   </div>
 )
 
@@ -31,8 +38,7 @@ const ExpenseList = (props) => (
 
 const mapStateToProps = state => {
   return {
-    expenses: state.expenses,
-    filters: state.filters
+    expenses: selectExpenses(state.expenses, state.filters),
   }
 }
 
