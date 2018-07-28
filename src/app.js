@@ -20,14 +20,12 @@ const store = configureStore()
 
 store.dispatch(addExpense({
   description: 'water bill',
-  amount: 100,
-  createdAt: -21000
+  amount: 100
 }))
 
 store.dispatch(addExpense({
   description: 'gas bill',
-  amount: 300,
-  createdAt: -1000
+  amount: 300
 }))
 
 store.dispatch(setTextFilter('water'))
