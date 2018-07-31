@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { setTextFilter } from '../actions/filters'
+import { setTextFilter, sortByAmount, sortByDate } from '../actions/filters'
 
 /**
   * the objective is to get the *old* value from the store
@@ -19,17 +19,32 @@ import { setTextFilter } from '../actions/filters'
   */
 const ExpenseListFilters = props => (
   <div>
+    {/*
+      * `onChange` function: pass in what you want to do -- the ACTION object.
+      * As users type into the input, `setTextFilter` will update state
+      * and render only expenses with input text.
+      */}
     <input type='text'
       value={props.filters.text}
       onChange={e => {
-        /**
-          * pass in the thing you want to do -- the ACTION object. As
-          * users type into the input, `setTextFilter` will update state
-          * and render only expenses with input's text.
-          */
         props.dispatch(setTextFilter(e.target.value))
       }}
     />
+    <select
+      value={props.filters.sortBy}
+      onChange={e => {
+        e.target.value === 'date'
+          ? props.dispatch(sortByDate())
+          : props.dispatch(sortByAmount())
+      }}
+    >
+      {/*
+        * set value attribute so that calls to reducer function receive
+        * the proper argument `date` or `amount`
+        */}
+      <option>date</option>
+      <option>amount</option>
+    </select>
   </div>
 )
 
