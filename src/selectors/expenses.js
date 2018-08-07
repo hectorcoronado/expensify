@@ -2,8 +2,6 @@
   * getVisibleExpenses
   * @param { expenses } Array of expenses to be filtered & sorted
   * @param { Object } properties by which to sort
-  *
-  * { }
   */
 
 export default (expenses, { text, sortBy, startDate, endDate }) => {

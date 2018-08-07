@@ -30,6 +30,14 @@ const ExpenseListFilters = props => (
         props.dispatch(setTextFilter(e.target.value))
       }}
     />
+    {/*
+      * since the <option>'s below have the same explicit value (i.e. `date`
+      * `amount`) as the strings we use to set our `sortByDate` & `sortByAmount`
+      * filters, we can use `e.target.value` in <select> to dispatch these actions
+      *
+      * if we set something like <option>Amount</option>, the uppercase letter would
+      * throw things off, so we'd have to use <option value='amount'> for it to work.
+      */}
     <select
       value={props.filters.sortBy}
       onChange={e => {
@@ -38,10 +46,6 @@ const ExpenseListFilters = props => (
           : props.dispatch(sortByAmount())
       }}
     >
-      {/*
-        * set value attribute so that calls to reducer function receive
-        * the proper argument `date` or `amount`
-        */}
       <option>date</option>
       <option>amount</option>
     </select>
