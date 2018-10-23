@@ -12,10 +12,7 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
     // if `undefined` || endDate is equal to or later than createdAt
     const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate
 
-    /** if expenses.description has the text variable string in it
-      *
-      * turn both strings to lower case
-      */
+    // boolean, if expenses.description has the text variable string in it
     const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
 
     // if all the above evaluate to `true`, we have a match

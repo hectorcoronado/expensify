@@ -1,3 +1,5 @@
+// action generators for expenses
+
 import uuid from 'uuid'
 
 // ADD_EXPENSE

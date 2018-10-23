@@ -36,6 +36,12 @@ store.dispatch(addExpense({
 const state = store.getState()
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
 
+/**
+ * Provider component's only prop is `store`, this is only the *prop name*,
+ * but the value we pass into it is the *actual* store, which we have defined
+ * above:
+ * const store = configureStore()
+ */
 const jsx = (
   <Provider store={store}>
     <AppRouter />

@@ -1,3 +1,5 @@
+// store configuration
+
 import { createStore, combineReducers } from 'redux'
 
 // reducers
