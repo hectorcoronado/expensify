@@ -23,6 +23,8 @@ const ExpenseListFilters = props => (
       * `onChange` function: pass in what you want to do -- the ACTION object.
       * As users type into the input, `setTextFilter` will update state
       * and render only expenses with input text.
+      * 
+      * the function passed in to `onChange` will fire upon any change to input.
       */}
     <input type='text'
       value={props.filters.text}

@@ -25,4 +25,14 @@ const ExpenseListItem = ({ amount, createdAt, description, dispatch, id }) => (
   </div>
 )
 
+// const ExpenseListItem = (props) => (
+//   <div>
+//     <h3>{props.expense.description}</h3>
+//     <p>{props.expense.amount} - {props.expense.createdAt}</p>
+//     <button onClick={() => {
+//       props.dispatch(removeExpense(props.expense.id)) 
+//     }}>remove</button>
+//   </div>
+// )
+
 export default connect()(ExpenseListItem)

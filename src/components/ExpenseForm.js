@@ -4,23 +4,30 @@ import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 
 export default class ExpenseForm extends React.Component {
+  // keep track of state locally, only do sth w/it once submitted
   state = {
     amount: '',
     calendarFocused: false,
-    createdAt: moment(),
+    createdAt: moment(), // new instance of moment()
     description: '',
+    error: '',
     note: ''
   }
 
   onAmountChange = e => {
     const amount = e.target.value
-    if (amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    /** setting `!amount` allows user to delete field entirely
+      * after having entered a valid amount
+      */ 
+    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
       this.setState(() => ({ amount }))
     }
   }
 
   onDateChange = createdAt => {
-    this.setState(() => ({ createdAt }))
+    if (createdAt) {
+      this.setState(() => ({ createdAt }))
+    }
   }
 
   onDescriptionChange = e => {
@@ -37,10 +44,24 @@ export default class ExpenseForm extends React.Component {
     this.setState(() => ({ note }))
   }
 
+  onSubmit = e => {
+    e.preventDefault()
+
+    if (!this.state.description || !this.state.amount) {
+      // set error state equal to message
+      this.setState(() => ({ error: 'please provide description and amount' }))
+    } else {
+      // clear error
+      this.setState(() => ({ error: '' }))
+      console.log('submitted');
+    }
+  }
+
   render () {
     return (
       <div>
-        <form>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.onSubmit}>
           <input
             type='text'
             placeholder='description'
@@ -48,6 +69,10 @@ export default class ExpenseForm extends React.Component {
             value={this.state.description}
             onChange={this.onDescriptionChange}
           />
+          {/* set type to `text` (not `number`)
+            * to allow for validation & not allow user
+            * to enter > 2 decimal places
+            */}
           <input
             type='text'
             placeholder='amount'
