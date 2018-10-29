@@ -46,6 +46,7 @@ export default class ExpenseForm extends React.Component {
 
   onSubmit = e => {
     e.preventDefault()
+    e.persist()
 
     if (!this.state.description || !this.state.amount) {
       // set error state equal to message
