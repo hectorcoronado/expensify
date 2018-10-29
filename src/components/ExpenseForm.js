@@ -53,7 +53,15 @@ export default class ExpenseForm extends React.Component {
     } else {
       // clear error
       this.setState(() => ({ error: '' }))
-      console.log('submitted');
+      // call `onSubmit` function made available via AddExpensePage.js,
+      // - call it with an object passing the necessary data
+      this.props.onSubmit({
+        description: this.state.description,
+        amount: parseFloat(this.state.amount, 10) * 100,
+        // `valueOf()` comes from moment.js, turns date to ms timestamp
+        createdAt: this.state.createdAt.valueOf(),
+        note: this.state.note
+      })
     }
   }
 
