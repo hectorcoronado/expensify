@@ -4,14 +4,28 @@ import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 
 export default class ExpenseForm extends React.Component {
-  // keep track of state locally, only do sth w/it once submitted
-  state = {
-    amount: '',
-    calendarFocused: false,
-    createdAt: moment(), // new instance of moment()
-    description: '',
-    error: '',
-    note: ''
+  /**
+   * track state locally, only do sth w/it once submitted;
+   * if expense obj is passed from EditExpensePage, populate
+   * values accordingly
+   */
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      // convert amount to string, div by 100 to add decimal
+      amount: props.expense
+        ? (props.expense.amount / 100).toString()
+        : '',
+      calendarFocused: false,
+      // props.expense.createdAt, or new instance of moment()
+      createdAt: props.expense
+        ? moment(props.expense.createdAt)
+        : moment(),
+      description: props.expense ? props.expense.description : '',
+      error: '',
+      note: props.expense ? props.expense.note : ''
+    }
   }
 
   onAmountChange = e => {
