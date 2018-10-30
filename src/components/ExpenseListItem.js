@@ -5,18 +5,21 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { removeExpense } from '../actions/expenses'
 
 /**
-  * destructure the `props` object to get the necessary properties:
+  * destructure `props` obj, get needed ones:
   */
 const ExpenseListItem = ({ amount, createdAt, description, dispatch, id }) => (
   <div>
-    <h3>{description}</h3>
+    <Link to={`/edit/${id}`}>
+      <h3>{description}</h3>
+    </Link>
     <p>{amount} - {createdAt}</p>
     {/**
-      * the button below invokes `dispatch()` with an action object
+      * btn below invokes `dispatch()` w/action obj
       * to update state, like in `ExpenseListFilters`
       */}
     <button onClick={() => {
@@ -24,15 +27,5 @@ const ExpenseListItem = ({ amount, createdAt, description, dispatch, id }) => (
     }}>remove</button>
   </div>
 )
-
-// const ExpenseListItem = (props) => (
-//   <div>
-//     <h3>{props.expense.description}</h3>
-//     <p>{props.expense.amount} - {props.expense.createdAt}</p>
-//     <button onClick={() => {
-//       props.dispatch(removeExpense(props.expense.id)) 
-//     }}>remove</button>
-//   </div>
-// )
 
 export default connect()(ExpenseListItem)
