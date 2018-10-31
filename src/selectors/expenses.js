@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 /**
   * getVisibleExpenses
   * @param { expenses } Array of expenses to be filtered & sorted
@@ -7,10 +9,11 @@
 export default (expenses, { text, sortBy, startDate, endDate }) => {
   // only need to filter by `text`, `startDate`, & `endDate`
   return expenses.filter((expense) => {
-    // if `undefined` || createdAt is equal to or later than startDate
-    const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate
-    // if `undefined` || endDate is equal to or later than createdAt
-    const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate
+    const createdAtMoment = moment(expense.createdAt)
+
+    // if both of these are true, the expense is kept, otherwise it will not be
+    const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
+    const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
 
     // boolean, if expenses.description has the text variable string in it
     const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
