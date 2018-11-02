@@ -9,4 +9,4 @@ yarn.lock
 public/bundle.js
 public/bundle.js.map
 
-src/tests/add.test.js
+src/tests/add.exampleTest.js
