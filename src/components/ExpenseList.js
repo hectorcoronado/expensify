@@ -11,16 +11,13 @@ import selectExpenses from '../selectors/expenses'
   * `connect()` below has given this component access to our
   * state, and made it available to it via `props`
   */
-const ExpenseList = props => (
+export const ExpenseList = props => (
   <div>
-    <h1>Expense List</h1>
-    {props.expenses.map(expense => (
-      <ExpenseListItem key={expense.id} {...expense} />
-    ))}
-    {/* <h1>Expense List</h1>
-    {props.expenses.map(expense => {
-      return <ExpenseListItem key={expense.id} expense={expense} />
-    })} */}
+    { 
+      props.expenses.length === 0 
+      ? (<p>no expenses</p>)
+      : (props.expenses.map(expense => (<ExpenseListItem key={expense.id} {...expense} />)))
+    }
   </div>
 )
 
