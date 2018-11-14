@@ -1,5 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import moment from 'moment'
 
 import ExpenseForm from '../../components/ExpenseForm'
 import expenses from '../fixtures/expenses'
@@ -31,6 +32,7 @@ test('should render error for invalid form submission', () => {
     const wrapper = shallow(<ExpenseForm />)
     // expect error to not be rendered prior to submit:
     expect(wrapper).toMatchSnapshot()
+    // simulate form submission event:
     wrapper.find('form').simulate('submit', {
         preventDefault: () => {}
     })
@@ -90,4 +92,58 @@ test('should not set amount if invalid input is used', () => {
     })
 
     expect(wrapper.state('amount')).toBe('')
+})
+
+test('should call onSubmit prop for valid form submission', () => {
+    const onSubmitSpy = jest.fn()
+    /** 1)
+     * create instance of ExpenseForm
+     *   - pass in an expense from expenses
+     *   - pass in `onSubmitSpy` as the onSubmit prop
+     */
+    const wrapper = shallow(<ExpenseForm expense={expenses[0]} onSubmit={onSubmitSpy} />)
+
+    // 2) simulate form submission event:
+    wrapper.find('form').simulate('submit', {
+        preventDefault: () => { }
+    })
+
+    /** 3)
+     * make assertions about what ought to've happened
+     *   - error state should equal an empty string
+     *   - form should have been called with specific arguments,
+     *     we can do so by passing in an object with specific
+     *     values and properties defined in `expenses[0]`
+     */
+    expect(wrapper.state('error')).toBe('')
+    expect(onSubmitSpy).toHaveBeenLastCalledWith({
+        description: expenses[0].description,
+        amount: expenses[0].amount,
+        note: expenses[0].note,
+        createdAt: expenses[0].createdAt      
+    })
+})
+
+/**
+ * testing `SingleDatePicker` is different, as it's functions are not
+ * called e.g. onChange or onSubmit:
+ */
+test('should set new date on date change', () => {
+    const wrapper = shallow(<ExpenseForm />)
+    const now = moment()
+    /**
+     * this is how you trigger a prop from a component, passing
+     * in whatever arguments are necessary in the subsequent
+     * parentheses
+     */
+    wrapper.find('SingleDatePicker').prop('onDateChange')(now)
+
+    expect(wrapper.state('createdAt')).toEqual(now)
+})
+
+test('should set calendarFocused when onFocusChange prop is called', () => {
+    const wrapper = shallow(<ExpenseForm />)
+    const focused = true
+    wrapper.find('SingleDatePicker').prop('onFocusChange')({ focused })
+    expect(wrapper.state('calendarFocused')).toBe(focused)
 })
