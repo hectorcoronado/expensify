@@ -7,9 +7,10 @@ import ExpenseForm from './ExpenseForm'
 // action generator
 import { addExpense } from '../actions/expenses'
 
+// use action generator name for prop used by dispatch 
 export class AddExpensePage extends React.Component {
   onSubmit = expense => {
-    this.props.onSubmit(expense)
+    this.props.addExpense(expense)
     this.props.history.push('/')
   }
 
@@ -30,7 +31,7 @@ export class AddExpensePage extends React.Component {
  *      import from elsewhere
  */
 const mapDispatchToProps = dispatch => (
-  { onSubmit: expense => dispatch(addExpense(expense)) }
+  { addExpense: expense => dispatch(addExpense(expense)) }
 )
 
 /**
