@@ -19,7 +19,7 @@ beforeEach(() => {
  *      - onSubmit
  *      - history
  * we can pass those in with anything as their values,
- * so we use spies (`jest.fn()`)
+ * so we use spies (`jest.fn()`, defined above)
  */
 test('should render AddExpensePage correctly', () => {
     expect(wrapper).toMatchSnapshot()
